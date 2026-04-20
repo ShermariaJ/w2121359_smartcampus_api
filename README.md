@@ -1,6 +1,7 @@
 # Smart Campus API
 
 Student ID: w2121359  
+Student Name: Shermara Jayasooriya
 Module: Client-Server Architectures
 
 ## Overview
