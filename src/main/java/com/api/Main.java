@@ -13,8 +13,9 @@ public class Main {
         String BASE_URI = "http://localhost:8082/";
 
         // Scan everything under com.api
-        ResourceConfig config = new ResourceConfig()
-                .packages("com.api");
+        ResourceConfig config = ResourceConfig.forApplication(
+                new com.api.config.ApplicationConfig()
+        ).packages("com.api");
 
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(
                 URI.create(BASE_URI), config
