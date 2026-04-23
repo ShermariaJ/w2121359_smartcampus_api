@@ -111,7 +111,7 @@ curl -X POST http://localhost:8082/api/v1/sensors/TEMP-001/readings \
 
 **Q1. Explain the default lifecycle of a JAX-RS Resource class. Is a new instance created per request or treated as a singleton? How does this affect in-memory data structures?**
 
-By default, JAX-RS resource classes are created per request — a new object is instantiated each time a request comes in. This helps avoid problems with shared state inside the resource class. However, in this project the main data is stored in shared collections like `HashMap` and `ArrayList`, so that data persists between requests. Because multiple requests could access the data simultaneously, updates should be handled carefully to avoid conflicts or data loss.
+By default, JAX-RS resource classes are created per request, a new object is instantiated each time a request comes in. This helps avoid problems with shared state inside the resource class. However, in this project the main data is stored in shared collections like `HashMap` and `ArrayList`, so that data persists between requests. Because multiple requests could access the data simultaneously, updates should be handled carefully to avoid conflicts or data loss.
 
 **Q2. Why is Hypermedia (HATEOAS) considered advanced RESTful design? How does it help clients?**
 
@@ -123,7 +123,7 @@ Hypermedia means the API response includes links or paths to other related resou
 
 **Q3. What are the implications of returning only room IDs vs full room objects?**
 
-Returning only room IDs makes responses smaller and faster as less data is transferred. However, the client would need to make additional requests to retrieve details about each room. Returning full room objects provides all relevant information at once — such as room name and capacity — at the cost of higher bandwidth. In this project, returning full room objects is reasonable given the small data size.
+Returning only room IDs makes responses smaller and faster as less data is transferred. However, the client would need to make additional requests to retrieve details about each room. Returning full room objects provides all relevant information at once, such as room name and capacity, at the cost of higher bandwidth. In this project, returning full room objects is reasonable given the small data size.
 
 **Q4. Is DELETE idempotent in your implementation?**
 
@@ -155,7 +155,7 @@ The Sub-Resource Locator pattern keeps the code organised by separating nested r
 
 **Q8. Why is HTTP 422 more accurate than 404 for a missing linked room inside valid JSON?**
 
-`HTTP 422 Unprocessable Entity` is more suitable because the request itself is valid and the endpoint exists — the problem is that the data inside the request cannot be processed correctly. For example, creating a sensor with a non-existent room ID is a data validation failure, not a missing URL. `404` typically indicates the requested path or resource was not found.
+`HTTP 422 Unprocessable Entity` is more suitable because the request itself is valid and the endpoint exists, the problem is that the data inside the request cannot be processed correctly. For example, creating a sensor with a non-existent room ID is a data validation failure, not a missing URL. `404` typically indicates the requested path or resource was not found.
 
 **Q9. What are the risks of exposing Java stack traces to API users?**
 
